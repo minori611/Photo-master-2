@@ -15,42 +15,44 @@ class editPhotoViewController: UIViewController, UIImagePickerControllerDelegate
     
     var originalImage: UIImage!
     var filter: CIFilter!
+    var slider: Double = 0
     var brightness = 1.0
     var contrast = 1.0
-    var exposure = 0.5
     var saturation = 1.0
-    let slider = UISlider(frame: CGRect(x:0, y:0, width:300, height:30))
-    private var button: UIButton!
+    let userDefaults = UserDefaults.standard
+    private var doneButton: UIButton!
+    let brightnessSlider = UISlider(frame: CGRect(x:0, y:0, width:200, height:30))
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         openAlbum()
+        addDoneButton()
+        addBrightnessSlider()
     }
     
-    func addSlider() {
-        slider.layer.position = CGPoint(x:self.view.frame.midX, y:600)
-        slider.layer.cornerRadius = 10.0
-        slider.layer.shadowOpacity = 0.5
-        slider.layer.masksToBounds = false
-        slider.tintColor = UIColor.gray
-        slider.minimumValue = 0
-        slider.maximumValue = 1
-        slider.setValue(0.0, animated: true)
+    func addBrightnessSlider() {
+        brightnessSlider.layer.position = CGPoint(x:self.view.frame.midX, y:600)
+        brightnessSlider.layer.cornerRadius = 10.0
+        brightnessSlider.layer.shadowOpacity = 0.5
+        brightnessSlider.layer.masksToBounds = false
+        brightnessSlider.tintColor = UIColor.gray
+        brightnessSlider.minimumValue = 0
+        brightnessSlider.maximumValue = 1
+        brightnessSlider.setValue(0.0, animated: true)
     }
     
-    func addButton() {
-        button = UIButton()
+    func addDoneButton() {
+        doneButton = UIButton()
         let bWidth: CGFloat = 200
         let bHeight: CGFloat = 50
         let posX: CGFloat = self.view.frame.width/2 - bWidth/2
         let posY: CGFloat = self.view.frame.height/2 - bHeight/2
-        button.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight)
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(self.removeSlider(sender:)), for: .touchUpInside)
-        self.view.addSubview(button)
-    }
+        doneButton.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight)
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.setTitleColor(UIColor.white, for: .normal)
+        doneButton.addTarget(self, action: #selector(self.removeSlider(sender:)), for: .touchUpInside)
+     }
     
     func openAlbum() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -72,24 +74,31 @@ class editPhotoViewController: UIViewController, UIImagePickerControllerDelegate
     
     //スライダーの削除
     @objc func removeSlider(sender: UIButton) {
-        slider.removeFromSuperview()
-        button.removeFromSuperview()
+        brightnessSlider.removeFromSuperview()
+        doneButton.removeFromSuperview()
     }
+    
     
     //brightness
     @IBAction func brightnessButton() {
-        addSlider()
-        addButton()
-        slider.addTarget(self, action: #selector(self.changeBrightness(sender:)), for: .valueChanged)
-        self.view.addSubview(slider)
-        
+        //changeBrightness(sender: UISlider)
+        brightness = Double(slider)
+        userDefaults.set(brightness, forKey: "brightness")
+        userDefaults.synchronize()
+        changeFilter()
+        self.view.addSubview(doneButton)
+        self.view.addSubview(brightnessSlider)
     }
     
-    @objc func changeBrightness(sender: UISlider) {
+    /*@objc func changeBrightness(sender: UISlider) {
         brightness = Double(sender.value)
         changeFilter()
         
-    }
+    }*/
+    
+    @IBAction func slider(sender: UISlider) {
+        slider = Double(sender.value)
+ }
     
     /*//contrast
     @IBAction func contrastButton() {
@@ -105,18 +114,6 @@ class editPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         //changeFilter()
     }
     
-    //exposure
-    @IBAction func exposureButton() {
-        addSlider()
-        addButton()
-        slider.addTarget(self, action: #selector(self.changeExposure(sender:)), for: .valueChanged)
-        self.view.addSubview(slider)
-    }
-    
-    @objc func changeExposure(sender: UISlider) {
-        exposure = Double(sender.value)
-        changeFilter()
-    }
     
     //saturation
     @IBAction func saturaionButton() {
@@ -144,11 +141,6 @@ class editPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         //contrast
         filter.setValue(contrast, forKey: "inputContrast")
         
-        //exposure
-        filter.setValue(exposure, forKey: "inputEV")
-        
-        //saturation
-        filter.setValue(saturation, forKey: "inputSaturation")
         
         let ctx = CIContext(options: nil)
         let cgImage = ctx.createCGImage(filter.outputImage!, from: filter.outputImage!.extent)
@@ -169,6 +161,10 @@ class editPhotoViewController: UIViewController, UIImagePickerControllerDelegate
         UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil, nil)
     }
     
+    @IBAction func test(){
+        brightness = userDefaults.object(forKey: "brightness") as! Double
+        changeFilter()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

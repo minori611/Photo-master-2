@@ -79,8 +79,15 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oT9-qg-B4u">
+                                <rect key="frame" x="14" y="586" width="341" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="sliderWithSender:" destination="a7v-I7-8Ih" eventType="valueChanged" id="gHK-qX-GK1"/>
+                                </connections>
+                            </slider>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RnU-oE-jrO">
-                                <rect key="frame" x="0.0" y="549" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
@@ -90,7 +97,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Brightness"/>
                                             <connections>
-                                                <action selector="brightnessButton" destination="a7v-I7-8Ih" eventType="touchUpInside" id="Ske-QU-gl3"/>
+                                                <action selector="brightnessButton" destination="a7v-I7-8Ih" eventType="touchUpInside" id="Ny8-lj-zh0"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -104,19 +111,9 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="V3X-bJ-Gv0">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XKI-UQ-fX4">
-                                            <rect key="frame" x="150" y="7" width="64" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Exposure"/>
-                                            <connections>
-                                                <action selector="exposureButton" destination="a7v-I7-8Ih" eventType="touchUpInside" id="txJ-cv-T1g"/>
-                                            </connections>
-                                        </button>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" id="Ce9-89-F3M">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QuE-gp-ciS">
-                                            <rect key="frame" x="214" y="7" width="71" height="30"/>
+                                            <rect key="frame" x="150" y="7" width="71" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Saturation"/>
                                             <connections>
@@ -128,6 +125,16 @@
                                         <connections>
                                             <action selector="sharePhoto" destination="a7v-I7-8Ih" id="ihd-IT-l8U"/>
                                         </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="PRX-bg-N0B">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HzP-sB-grQ">
+                                            <rect key="frame" x="284.5" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="♡"/>
+                                            <connections>
+                                                <action selector="test" destination="a7v-I7-8Ih" eventType="touchUpInside" id="wlf-8b-GnO"/>
+                                            </connections>
+                                        </button>
                                     </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -162,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oLb-SS-yhc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2742" y="351"/>
+            <point key="canvasLocation" x="2741.5999999999999" y="350.37481259370315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Lt-4W-Mb8">
